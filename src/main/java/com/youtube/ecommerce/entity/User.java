@@ -29,7 +29,7 @@ public class User {
     }
 
     public User(String userName, String userFirstName, String userLastName, String userEmail, String userPassword, Set<Role> role, String dateOfBirth) {
-                            this.userName = userName;
+        this.userName = userName;
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
         this.userEmail = userEmail;

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Set;
 
 
 @Entity
@@ -31,12 +31,21 @@ public class Product {
     private BigDecimal volume;
 
     private Integer quantityInStock;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "product_images",
+            joinColumns = {
+                    @JoinColumn(name = "product_id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "image_id")
+            }
+    )
+    private Set<ImageModel> productImages;
 
     public Product() {
     }
 
-    public Product(Long id, String title, BigDecimal price, Category category, Map<String, String> parameters, BigDecimal weight, BigDecimal volume, Integer quantityInStock) {
-        this.id = id;
+    public Product(String title, BigDecimal price, Category category, Map<String, String> parameters, BigDecimal weight, BigDecimal volume, Integer quantityInStock, Set<ImageModel> productImages) {
         this.title = title;
         this.price = price;
         this.category = category;
@@ -44,6 +53,7 @@ public class Product {
         this.weight = weight;
         this.volume = volume;
         this.quantityInStock = quantityInStock;
+        this.productImages = productImages;
     }
 
     public Long getId() {
@@ -108,5 +118,13 @@ public class Product {
 
     public void setQuantityInStock(Integer quantityInStock) {
         this.quantityInStock = quantityInStock;
+    }
+
+    public Set<ImageModel> getProductImages() {
+        return productImages;
+    }
+
+    public void setProductImages(Set<ImageModel> productImages) {
+        this.productImages = productImages;
     }
 }
