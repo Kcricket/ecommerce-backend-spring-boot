@@ -9,4 +9,7 @@ import java.util.List;
 @Repository
 public interface ProductDao extends CrudRepository<Product, Integer> {
     List<Product> findByCategoryName(String categoryName);
+    List<Product> findAll();
+
+    List<Product> findByTitleContainingIgnoreCase(String title);
 }

@@ -17,4 +17,12 @@ public class ProductService {
     public List<Product> findByCategoryName(String categoryName) {
         return productDao.findByCategoryName(categoryName);
     }
+
+    public List<Product> getAllProducts(String searchKey) {
+        if(searchKey.equals("")){
+            return (List<Product>) productDao.findAll();
+        }else{
+            return productDao.findByTitleContainingIgnoreCase(searchKey);
+        }
+    }
 }

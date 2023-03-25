@@ -6,9 +6,11 @@ import com.youtube.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.GeneratedValue;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
@@ -36,7 +38,7 @@ public class ProductController {
     }
 
     //Method for preparing array of images to save in database
-    public Set<ImageModel> uploadImage(MultipartFile[] multipartFiles) throws IOException {
+    private Set<ImageModel> uploadImage(MultipartFile[] multipartFiles) throws IOException {
         Set<ImageModel> imageModels = new HashSet<>();
         for (MultipartFile file: multipartFiles){
             ImageModel imageModel = new ImageModel(
@@ -56,6 +58,15 @@ public class ProductController {
         if (products.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/getAllProducts")
+    public ResponseEntity<List<Product>> getAllProducts(
+            @RequestParam(defaultValue = "") String searchKey
+    ) {
+        List<Product> products = productService.getAllProducts(searchKey);
+
         return ResponseEntity.ok(products);
     }
 }
