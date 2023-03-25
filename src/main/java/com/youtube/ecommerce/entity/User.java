@@ -1,6 +1,8 @@
 package com.youtube.ecommerce.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,8 +26,7 @@ public class User {
     private Set<Role> role;
     private String dateOfBirth;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private UserAddress address;
+
 
 
     public User() {
@@ -96,8 +97,5 @@ public class User {
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-
-
-
 }
 

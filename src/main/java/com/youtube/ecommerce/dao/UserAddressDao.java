@@ -8,8 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserDao extends CrudRepository<User, String> {
-    User findByUserName(String userName);
-
-    //Find all users userAdresses
+public interface UserAddressDao extends CrudRepository<UserAddress, Integer> {
+    //Find by User
+    public List<UserAddress> findByUser(User user);
 }

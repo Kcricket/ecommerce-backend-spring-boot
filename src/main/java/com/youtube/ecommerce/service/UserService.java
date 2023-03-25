@@ -3,6 +3,7 @@ package com.youtube.ecommerce.service;
 import com.youtube.ecommerce.configuration.JwtRequestFilter;
 import com.youtube.ecommerce.dao.RoleDao;
 import com.youtube.ecommerce.dao.UserDao;
+import com.youtube.ecommerce.entity.ChangePasswordRequest;
 import com.youtube.ecommerce.entity.Role;
 import com.youtube.ecommerce.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,22 @@ public class UserService {
 
         return userDao.save(user);
     }
-    //Find user by username
+    // Change user password
+    public User changeUserPassword(ChangePasswordRequest changePasswordRequest) {
+        //If old password is correct then change the password
+        String oldPassword = changePasswordRequest.getOldPassword();
+        String newPassword = changePasswordRequest.getNewPassword();
+        if(passwordEncoder.matches(oldPassword, userDao.findById(JwtRequestFilter.USERNAME).get().getUserPassword())) {
+            String username = JwtRequestFilter.USERNAME;
+            User user = userDao.findById(username).get();
+            user.setUserPassword(getEncodedPassword(newPassword));
+            return userDao.save(user);
+        }else{
+            return null;
+        }
+
+    }
+
     public User findByUsername() {
         String username = JwtRequestFilter.USERNAME;
         return userDao.findById(username).get();
