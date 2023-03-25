@@ -1,5 +1,6 @@
 package com.youtube.ecommerce.service;
 
+import com.youtube.ecommerce.configuration.JwtRequestFilter;
 import com.youtube.ecommerce.dao.RoleDao;
 import com.youtube.ecommerce.dao.UserDao;
 import com.youtube.ecommerce.entity.Role;
@@ -65,6 +66,11 @@ public class UserService {
         user.setUserPassword(getEncodedPassword(user.getUserPassword()));
 
         return userDao.save(user);
+    }
+    //Find user by username
+    public User findByUsername() {
+        String username = JwtRequestFilter.USERNAME;
+        return userDao.findById(username).get();
     }
 
 

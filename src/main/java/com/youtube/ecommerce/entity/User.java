@@ -24,6 +24,9 @@ public class User {
     private Set<Role> role;
     private String dateOfBirth;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private UserAddress address;
+
 
     public User() {
     }
