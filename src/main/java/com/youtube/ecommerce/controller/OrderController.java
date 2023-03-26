@@ -2,6 +2,8 @@ package com.youtube.ecommerce.controller;
 
 import com.youtube.ecommerce.entity.Order;
 import com.youtube.ecommerce.entity.OrderRequest;
+import com.youtube.ecommerce.entity.Product;
+import com.youtube.ecommerce.entity.User;
 import com.youtube.ecommerce.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -29,5 +31,14 @@ public class OrderController {
     @GetMapping("/getAllOrders")
     public List<Order> getAllOrders(){
         return orderService.getAllOrders();
+    }
+    @GetMapping("/getUsersWithMostOrders")
+    public List<User> getUsersWithMostOrders(){
+        return orderService.getUsersWithMostOrders(2);
+    }
+
+    @GetMapping("/getProductsWithMostOrders")
+    public List<Product> getProductsWithMostOrders(){
+        return orderService.getMostOrderedProducts(1);
     }
 }

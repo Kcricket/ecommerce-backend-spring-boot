@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -62,4 +63,29 @@ public class OrderService {
         return (List<Order>) orderDao.findAll();
     }
 
+    public List<User> getUsersWithMostOrders(int limit) {
+        List<User[]> userCounts = orderDao.countOrdersByUser();
+        List<User> result = new ArrayList<>();
+        for (User[] obj : userCounts) {
+            User user = (User) obj[0];
+            result.add(user);
+        }
+        if (result.size() > limit) {
+            result = result.subList(0, limit);
+        }
+        return result;
+    }
+
+    public List<Product> getMostOrderedProducts(int limit) {
+        List<Product[]> productCounts = orderDao.countProductsOrdered();
+        List<Product> result = new ArrayList<>();
+        for (Product[] obj : productCounts) {
+            Product product = (Product) obj[0];
+            result.add(product);
+        }
+        if (result.size() > limit) {
+            result = result.subList(0, limit);
+        }
+        return result;
+    }
 }
