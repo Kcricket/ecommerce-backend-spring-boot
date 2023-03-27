@@ -11,6 +11,8 @@ import java.util.List;
 public class ProductService {
     @Autowired
     private ProductDao productDao;
+
+
     public Product addNewProduct(Product product){
         return productDao.save(product);
     }
@@ -24,5 +26,20 @@ public class ProductService {
         }else{
             return productDao.findByTitleContainingIgnoreCase(searchKey);
         }
+    }
+
+    public ProductService() {
+    }
+
+    public ProductService(ProductDao productDao) {
+        this.productDao = productDao;
+    }
+
+    public ProductDao getProductDao() {
+        return productDao;
+    }
+
+    public void setProductDao(ProductDao productDao) {
+        this.productDao = productDao;
     }
 }
