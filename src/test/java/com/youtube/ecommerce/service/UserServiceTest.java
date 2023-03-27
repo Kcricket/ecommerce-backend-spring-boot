@@ -35,6 +35,7 @@ class UserServiceTest {
 
     @BeforeEach
     void setUp() {
+
         userService = new UserService(userDao, roleDao, passwordEncoder);
     }
 

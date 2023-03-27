@@ -36,4 +36,28 @@ public class UserAddressService {
         userAddressDao.deleteById(id);
     }
 
+
+    public UserAddressService() {
+    }
+
+    public UserAddressService(UserAddressDao userAddressDao, UserDao userDao) {
+        this.userAddressDao = userAddressDao;
+        this.userDao = userDao;
+    }
+
+    public UserAddressDao getUserAddressDao() {
+        return userAddressDao;
+    }
+
+    public void setUserAddressDao(UserAddressDao userAddressDao) {
+        this.userAddressDao = userAddressDao;
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
 }

@@ -14,4 +14,19 @@ public class RoleService {
     public Role createNewRole(Role role) {
         return roleDao.save(role);
     }
+
+    public RoleService(RoleDao roleDao) {
+        this.roleDao = roleDao;
+    }
+
+    public RoleService() {
+    }
+
+    public RoleDao getRoleDao() {
+        return roleDao;
+    }
+
+    public void setRoleDao(RoleDao roleDao) {
+        this.roleDao = roleDao;
+    }
 }
