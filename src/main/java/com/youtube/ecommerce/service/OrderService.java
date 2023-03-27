@@ -67,6 +67,7 @@ public class OrderService {
         List<User[]> userCounts = orderDao.countOrdersByUser();
         List<User> result = new ArrayList<>();
         for (User[] obj : userCounts) {
+            //Add at the beggining of array
             User user = (User) obj[0];
             result.add(user);
         }
