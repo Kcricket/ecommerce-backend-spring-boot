@@ -89,6 +89,16 @@ public class UserService {
         return userDao.findById(username).get();
     }
 
+    //Edit user details
+    public User editUserDetails(User user) {
+        String username = JwtRequestFilter.USERNAME;
+        User user1 = userDao.findById(username).get();
+        user1.setUserFirstName(user.getUserFirstName());
+        user1.setUserLastName(user.getUserLastName());
+        user1.setUserEmail(user.getUserEmail());
+        return userDao.save(user1);
+    }
+
 
 
 

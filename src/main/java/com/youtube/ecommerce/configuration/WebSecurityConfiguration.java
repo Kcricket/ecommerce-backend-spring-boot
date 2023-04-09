@@ -38,17 +38,23 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+        // Enable Cross-Origin Resource Sharing (CORS)
         httpSecurity.cors();
-        httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/loadUserData", "/addToCart/{productId}","/getProductsByCategoryName/{categoryName}", "/getCategoryByName/{categoryName}", "/getAllCategories", "/getAllProducts", "/authenticate", "/registerNewUser", "/addNewProduct", "/addNewCategory").permitAll()
-                .antMatchers(HttpHeaders.ALLOW).permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        ;
 
+        // Disable Cross-Site Request Forgery (CSRF)
+        httpSecurity.csrf().disable()
+                // Allow access to specified URLs without authentication
+                .authorizeRequests().antMatchers( "/addToCart/{productId}","/getProductsByCategoryName/{categoryName}", "/getCategoryByName/{categoryName}", "/getAllCategories", "/getAllProducts", "/authenticate", "/registerNewUser").permitAll()
+                // Allow access to the HTTP Headers
+                .antMatchers(HttpHeaders.ALLOW).permitAll()
+                // Require authentication for any other URL
+                .anyRequest().authenticated()
+                // Configure exception handling for invalid JWT tokens
+                .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                // Set session creation policy to stateless (no session is created)
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        // Add JWT filter before the UsernamePasswordAuthenticationFilter
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
@@ -56,7 +62,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    //Configures the AuthenticationManagerBuilder to use the UserDetailsService and PasswordEncoder.
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.userDetailsService(jwtService).passwordEncoder(passwordEncoder());

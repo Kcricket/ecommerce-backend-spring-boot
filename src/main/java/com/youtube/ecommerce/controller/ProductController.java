@@ -22,6 +22,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
     //Multipart request
+    @PreAuthorize("hasRole('Admin')")
     @PostMapping(value = {"/addNewProduct"}, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public Product addNewProduct(@RequestPart("product") Product product,
                                  @RequestPart("imageFile") MultipartFile[] file){

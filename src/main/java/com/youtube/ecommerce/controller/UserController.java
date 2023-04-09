@@ -74,4 +74,10 @@ public class UserController {
         userAddressService.deleteUserAddress(id);
     }
 
+    //Put mapping for updating user details
+    @PutMapping({"/updateUserDetails"})
+    public User updateUserDetails(@RequestBody User user){
+        return userService.editUserDetails(user);
+    }
+
 }

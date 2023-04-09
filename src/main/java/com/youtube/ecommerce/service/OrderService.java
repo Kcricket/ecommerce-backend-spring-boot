@@ -59,6 +59,14 @@ public class OrderService {
         return orderDao.findByUser(user);
     }
 
+    //Update order
+
+    public Order updateOrderStatus(Order order) {
+        Order orderToUpdate = orderDao.findById(order.getId()).get();
+        orderToUpdate.setOrderStatus(order.getOrderStatus());
+        return orderDao.save(orderToUpdate);
+    }
+
     public List<Order> getAllOrders(){
         return (List<Order>) orderDao.findAll();
     }
@@ -88,5 +96,38 @@ public class OrderService {
             result = result.subList(0, limit);
         }
         return result;
+    }
+
+    public OrderService() {
+    }
+
+    public OrderService(OrderDao orderDao, ProductDao productDao, UserDao userDao) {
+        this.orderDao = orderDao;
+        this.productDao = productDao;
+        this.userDao = userDao;
+    }
+
+    public OrderDao getOrderDao() {
+        return orderDao;
+    }
+
+    public void setOrderDao(OrderDao orderDao) {
+        this.orderDao = orderDao;
+    }
+
+    public ProductDao getProductDao() {
+        return productDao;
+    }
+
+    public void setProductDao(ProductDao productDao) {
+        this.productDao = productDao;
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 }

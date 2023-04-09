@@ -17,6 +17,7 @@ public class CartController {
     private CartService cartService;
 
     @GetMapping("/addToCart/{productId}")
+
     public Cart addToCart(
         @PathVariable("productId") Integer productId
     ) {

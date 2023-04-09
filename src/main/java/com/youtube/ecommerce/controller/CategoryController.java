@@ -4,6 +4,7 @@ import com.youtube.ecommerce.entity.Category;
 import com.youtube.ecommerce.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
     @PostMapping({"/addNewCategory"})
+    @PreAuthorize("hasRole('Admin')")
     public Category addNewCategory(@RequestBody Category category){
         return categoryService.addNewCategory(category);
     }
