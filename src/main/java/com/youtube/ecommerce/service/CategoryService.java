@@ -21,4 +21,20 @@ public class CategoryService {
     public Category findByName(String name) {
         return categoryDao.findByName(name);
     }
+
+    public CategoryService() {
+    }
+
+    public CategoryService(CategoryDao categoryDao) {
+        this.categoryDao = categoryDao;
+    }
+
+    public CategoryDao getCategoryDao() {
+        return categoryDao;
+    }
+
+    public void setCategoryDao(CategoryDao categoryDao) {
+        this.categoryDao = categoryDao;
+    }
 }
+
